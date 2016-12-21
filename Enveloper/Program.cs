@@ -100,8 +100,8 @@ namespace Enveloper
                     outerPolyLineA.Fill = new SvgColourServer(Color.White);
 
                     outerPolyLineA.Points = new SvgPointCollection();
-                    outerPolyLineA.Points.Add(new SvgUnit(0.0f + envelope.c/2 - envelope.r));
-                    outerPolyLineA.Points.Add(new SvgUnit(envelope.length - envelope.d - envelope.c/2 - envelope.r));
+                    outerPolyLineA.Points.Add(new SvgUnit(0.0f + envelope.c/2 - 0.3f*envelope.r));
+                    outerPolyLineA.Points.Add(new SvgUnit(envelope.length - envelope.d - envelope.c/2 - 0.7f*envelope.r));
 
                     outerPolyLineA.Points.Add(new SvgUnit(0.0f));
                     outerPolyLineA.Points.Add(new SvgUnit(envelope.b));
@@ -109,11 +109,11 @@ namespace Enveloper
                     outerPolyLineA.Points.Add(new SvgUnit(0.0f));
                     outerPolyLineA.Points.Add(new SvgUnit(0.0f));
 
-                    outerPolyLineA.Points.Add(new SvgUnit(envelope.b));
+                    outerPolyLineA.Points.Add(new SvgUnit(envelope.b - 0.7f* envelope.r));
                     outerPolyLineA.Points.Add(new SvgUnit(0.0f));
 
-                    outerPolyLineA.Points.Add(new SvgUnit(envelope.b + envelope.c/2 - envelope.r));
-                    outerPolyLineA.Points.Add(new SvgUnit(envelope.c/2 - envelope.r));
+                    outerPolyLineA.Points.Add(new SvgUnit(envelope.b + envelope.c/2 - 0.7f*envelope.r));
+                    outerPolyLineA.Points.Add(new SvgUnit((envelope.c/2) - 0.3f*envelope.r));
                     outerGroup.Children.Add(outerPolyLineA);
                     #endregion
 
@@ -124,20 +124,20 @@ namespace Enveloper
                     outerPolyLineB.Fill = new SvgColourServer(Color.White);
 
                     outerPolyLineB.Points = new SvgPointCollection();
-                    outerPolyLineB.Points.Add(new SvgUnit(envelope.length -envelope.d - envelope.c/2 + envelope.r));
-                    outerPolyLineB.Points.Add(new SvgUnit(envelope.c / 2 - envelope.r));
+                    outerPolyLineB.Points.Add(new SvgUnit(envelope.length -envelope.d - envelope.c/2 + 0.7f*envelope.r));
+                    outerPolyLineB.Points.Add(new SvgUnit(envelope.c / 2 - 0.3f*envelope.r));
 
-                    outerPolyLineB.Points.Add(new SvgUnit(envelope.length - envelope.d));
+                    outerPolyLineB.Points.Add(new SvgUnit(envelope.length - envelope.d + 0.7f*envelope.r));
                     outerPolyLineB.Points.Add(new SvgUnit(0.0f));
 
                     outerPolyLineB.Points.Add(new SvgUnit(envelope.length));
                     outerPolyLineB.Points.Add(new SvgUnit(0.0f));
 
                     outerPolyLineB.Points.Add(new SvgUnit(envelope.length));
-                    outerPolyLineB.Points.Add(new SvgUnit(envelope.d));
+                    outerPolyLineB.Points.Add(new SvgUnit(envelope.d - 0.7f*envelope.r));
 
-                    outerPolyLineB.Points.Add(new SvgUnit(envelope.length - envelope.c/2 + envelope.r));
-                    outerPolyLineB.Points.Add(new SvgUnit(envelope.d + envelope.c/2 - envelope.r));
+                    outerPolyLineB.Points.Add(new SvgUnit(envelope.length - envelope.c/2 + 0.3f*envelope.r));
+                    outerPolyLineB.Points.Add(new SvgUnit(envelope.d + envelope.c/2 - 0.7f*envelope.r));
                     outerGroup.Children.Add(outerPolyLineB);
                     #endregion
 
@@ -148,20 +148,20 @@ namespace Enveloper
                     outerPolyLineC.Fill = new SvgColourServer(Color.White);
 
                     outerPolyLineC.Points = new SvgPointCollection();
-                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.c / 2 + envelope.r));
-                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.b - envelope.c / 2 + envelope.r));
+                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.c / 2 + 0.3f*envelope.r));
+                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.b - envelope.c / 2 + 0.7f*envelope.r));
 
                     outerPolyLineC.Points.Add(new SvgUnit(envelope.length));
-                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.b));
+                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.b + 0.7f*envelope.r));
 
                     outerPolyLineC.Points.Add(new SvgUnit(envelope.length));
                     outerPolyLineC.Points.Add(new SvgUnit(envelope.length));
 
-                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.b));
+                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.b + 0.7f*envelope.r));
                     outerPolyLineC.Points.Add(new SvgUnit(envelope.length));
 
-                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.b - envelope.c/2 + envelope.r));
-                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.c / 2 + envelope.r));
+                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.b - envelope.c/2 + 0.7f*envelope.r));
+                    outerPolyLineC.Points.Add(new SvgUnit(envelope.length - envelope.c / 2 + 0.3f*envelope.r));
                     outerGroup.Children.Add(outerPolyLineC);
                     #endregion
 
@@ -172,28 +172,28 @@ namespace Enveloper
                     outerPolyLineD.Fill = new SvgColourServer(Color.White);
 
                     outerPolyLineD.Points = new SvgPointCollection();
-                    outerPolyLineD.Points.Add(new SvgUnit(envelope.d + envelope.c/2 - envelope.r));
-                    outerPolyLineD.Points.Add(new SvgUnit(envelope.length - envelope.c / 2 + envelope.r));
+                    outerPolyLineD.Points.Add(new SvgUnit(envelope.d + envelope.c/2 - 0.7f*envelope.r));
+                    outerPolyLineD.Points.Add(new SvgUnit(envelope.length - envelope.c / 2 + 0.3f*envelope.r));
 
-                    outerPolyLineD.Points.Add(new SvgUnit(envelope.d));
+                    outerPolyLineD.Points.Add(new SvgUnit(envelope.d - 0.7f*envelope.r));
                     outerPolyLineD.Points.Add(new SvgUnit(envelope.length));
 
                     outerPolyLineD.Points.Add(new SvgUnit(0.0f));
                     outerPolyLineD.Points.Add(new SvgUnit(envelope.length));
 
                     outerPolyLineD.Points.Add(new SvgUnit(0.0f));
-                    outerPolyLineD.Points.Add(new SvgUnit(envelope.length - envelope.d));
+                    outerPolyLineD.Points.Add(new SvgUnit(envelope.length - envelope.d + 0.7f*envelope.r));
 
-                    outerPolyLineD.Points.Add(new SvgUnit(envelope.c / 2 - envelope.r));
-                    outerPolyLineD.Points.Add(new SvgUnit(envelope.length -envelope.d - envelope.c / 2 + envelope.r));
+                    outerPolyLineD.Points.Add(new SvgUnit(envelope.c / 2 - 0.3f*envelope.r));
+                    outerPolyLineD.Points.Add(new SvgUnit(envelope.length -envelope.d - envelope.c / 2 + 0.7f*envelope.r));
                     outerGroup.Children.Add(outerPolyLineD);
                     #endregion
 
                     #region top mid arc cut
-                    var startPoint = new PointF(envelope.b + envelope.c / 2 - envelope.r, envelope.c / 2 - envelope.r);
-                    var endPoint = new PointF(envelope.b + envelope.c / 2 + envelope.r, envelope.c / 2 - envelope.r);
+                    var startPoint = new PointF(envelope.b + envelope.c / 2 - (0.7f * envelope.r), envelope.c / 2 - (0.3f * envelope.r));
+                    var endPoint = new PointF(envelope.b + envelope.c / 2 + (0.7f*envelope.r), envelope.c / 2 - (0.3f *envelope.r));
                     var moveTo = new SvgMoveToSegment(startPoint);
-                    var arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 180.0f, SvgArcSize.Small, SvgArcSweep.Negative, endPoint);
+                    var arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Negative, endPoint);
                     var arcPathData = new SvgPath();
                     arcPathData.Stroke = new SvgColourServer(Color.Red);
                     arcPathData.Fill = new SvgColourServer(Color.White);
@@ -204,10 +204,10 @@ namespace Enveloper
                     #endregion
 
                     #region right mid arc cut
-                    startPoint = new PointF(envelope.length - envelope.c / 2 + envelope.r, envelope.d + envelope.c / 2 - envelope.r);
-                    endPoint = new PointF(envelope.length - envelope.c / 2 + envelope.r, envelope.d + envelope.c / 2 + envelope.r);
+                    startPoint = new PointF(envelope.length - envelope.c / 2 + 0.3f*envelope.r, envelope.d + envelope.c / 2 - 0.7f*envelope.r);
+                    endPoint = new PointF(envelope.length - envelope.c / 2 + 0.3f*envelope.r, envelope.d + envelope.c / 2 + 0.7f*envelope.r);
                     moveTo = new SvgMoveToSegment(startPoint);
-                    arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 180.0f, SvgArcSize.Small, SvgArcSweep.Negative, endPoint);
+                    arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Negative, endPoint);
                     arcPathData = new SvgPath();
                     arcPathData.Stroke = new SvgColourServer(Color.Red);
                     arcPathData.Fill = new SvgColourServer(Color.White);
@@ -218,10 +218,10 @@ namespace Enveloper
                     #endregion
 
                     #region bottom mid arc cut
-                    startPoint = new PointF(envelope.b + envelope.c / 2 - envelope.r, envelope.length - envelope.c / 2 + envelope.r);
-                    endPoint = new PointF(envelope.b + envelope.c / 2 + envelope.r, envelope.length - envelope.c / 2 + envelope.r);
+                    startPoint = new PointF(envelope.b + envelope.c / 2 - 0.7f*envelope.r, envelope.length - envelope.c / 2 + 0.3f*envelope.r);
+                    endPoint = new PointF(envelope.b + envelope.c / 2 + 0.7f*envelope.r, envelope.length - envelope.c / 2 + 0.3f*envelope.r);
                     moveTo = new SvgMoveToSegment(startPoint);
-                    arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 180.0f, SvgArcSize.Small, SvgArcSweep.Positive, endPoint);
+                    arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Positive, endPoint);
                     arcPathData = new SvgPath();
                     arcPathData.Stroke = new SvgColourServer(Color.Red);
                     arcPathData.Fill = new SvgColourServer(Color.White);
@@ -232,10 +232,10 @@ namespace Enveloper
                     #endregion
 
                     #region left mid arc cut
-                    startPoint = new PointF(envelope.c / 2 - envelope.r, envelope.b + envelope.c / 2 - envelope.r);
-                    endPoint = new PointF(envelope.c / 2 - envelope.r, envelope.b + envelope.c / 2 + envelope.r);
+                    startPoint = new PointF(envelope.c / 2 - 0.3f*envelope.r, envelope.b + envelope.c / 2 - 0.7f*envelope.r);
+                    endPoint = new PointF(envelope.c / 2 - 0.3f*envelope.r, envelope.b + envelope.c / 2 + 0.7f*envelope.r);
                     moveTo = new SvgMoveToSegment(startPoint);
-                    arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 180.0f, SvgArcSize.Small, SvgArcSweep.Positive, endPoint);
+                    arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Positive, endPoint);
                     arcPathData = new SvgPath();
                     arcPathData.Stroke = new SvgColourServer(Color.Red);
                     arcPathData.Fill = new SvgColourServer(Color.White);
