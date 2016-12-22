@@ -2,78 +2,20 @@
 using System.Drawing;
 using Svg;
 using Svg.Pathing;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Enveloper
 {
-    public struct Dimensions
-    {
-        public float length;
-        public float b, c, d;
-        public float r;
-    }
-    public class Envelope
-    {
-        public Envelope()
-        {
-            Length = 6;
-            Height = 4;
-            RoundTo = 0.125f;
-            Offset = 0.18f;
-            CutOffRadius = 0.05f;
-        }
 
-        public Envelope(float length, float height, float scaling)
-        {
-            Length = length;
-            Height = height;
-            RoundTo = 0.125f;
-            Offset = 0.18f;
-            Scale = scaling;
-            CutOffRadius = 0.05f;
-        }
-
-        public Dimensions getDim()
-        {
-            var dim = new Dimensions();
-            dim.b = roundToNearestFraction(Scale*(Length / 2) * (float)Math.Sqrt(2));
-            dim.c = roundToNearestFraction(Scale * Offset * 2);
-            dim.d = roundToNearestFraction(Scale * (Height / 2) * (float)Math.Sqrt(2));
-            dim.length = dim.b + dim.c + dim.d;
-            dim.r = CutOffRadius * Scale;
-            return dim;
-        }
-        float Length { get; set; }
-        float Height { get; set; }
-        float Offset { get; set; }
-        float RoundTo { get; set; }
-        float Scale { get; set; }
-        float CutOffRadius { get; set; }
-        float roundToNearestFraction(float value, float fraction = 0.125f)
-        {
-            float intPart = (float)Math.Floor(value);
-            float floatPart = value - intPart;
-            if((floatPart % fraction != 0 ))
-            {
-                var t = (float)Math.Floor(floatPart / fraction);
-                floatPart = (t + 1) * fraction;
-            }
-            return intPart + floatPart;
-        }
-
-    }
+ 
     class Program
     {
         static void Main(string[] args)
         {
 
             SvgDocument FSvgDoc;
-            const float scale = 100.0f;
-
+            const float scale = 1.0f;
+            const float strokeWidth = 0.0001f;
 
             for (float x = 4.0f; x < 7; x += 0.25f)
             {
@@ -84,18 +26,17 @@ namespace Enveloper
 
                     FSvgDoc = new SvgDocument
                     {
-                        Width = 1000,
-                        Height = 1000
+                        Width = new SvgUnit(SvgUnitType.Inch, 12),
+                        Height = new SvgUnit(SvgUnitType.Inch, 12)
                     };
-                    FSvgDoc.ViewBox = new SvgViewBox(-10, -10, 1000, 1000);
-
+                    FSvgDoc.ViewBox = new SvgViewBox(-1, -1, 13, 13);
                     var outerGroup = new SvgGroup();
-                    outerGroup.StrokeLineJoin = SvgStrokeLineJoin.Round;
                     FSvgDoc.Children.Add(outerGroup);
                     
                     #region left-mid to top left to top-mid
                     //left-mid to top left to top-mid
                     var outerPolyLineA = new SvgPolyline();
+                    outerPolyLineA.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     outerPolyLineA.Stroke = new SvgColourServer(Color.Red);
                     outerPolyLineA.Fill = new SvgColourServer(Color.White);
 
@@ -120,6 +61,7 @@ namespace Enveloper
                     #region top-mid to top right to right-mid
                     //top-mid to top right to right-mid
                     var outerPolyLineB = new SvgPolyline();
+                    outerPolyLineB.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     outerPolyLineB.Stroke = new SvgColourServer(Color.Red);
                     outerPolyLineB.Fill = new SvgColourServer(Color.White);
 
@@ -144,6 +86,7 @@ namespace Enveloper
                     #region right-mid to bottom-right to bottom-mid
                     //right-mid to bottom-right to bottom-mid
                     var outerPolyLineC = new SvgPolyline();
+                    outerPolyLineC.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     outerPolyLineC.Stroke = new SvgColourServer(Color.Red);
                     outerPolyLineC.Fill = new SvgColourServer(Color.White);
 
@@ -168,6 +111,7 @@ namespace Enveloper
                     #region bottom-mid to bottom-left to left-mid
                     //bottom-mid to bottom-left to left-mid
                     var outerPolyLineD = new SvgPolyline();
+                    outerPolyLineD.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     outerPolyLineD.Stroke = new SvgColourServer(Color.Red);
                     outerPolyLineD.Fill = new SvgColourServer(Color.White);
 
@@ -196,6 +140,7 @@ namespace Enveloper
                     var arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Negative, endPoint);
                     var arcPathData = new SvgPath();
                     arcPathData.Stroke = new SvgColourServer(Color.Red);
+                    arcPathData.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     arcPathData.Fill = new SvgColourServer(Color.White);
                     arcPathData.PathData = new SvgPathSegmentList();
                     arcPathData.PathData.Add(moveTo);
@@ -209,6 +154,7 @@ namespace Enveloper
                     moveTo = new SvgMoveToSegment(startPoint);
                     arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Negative, endPoint);
                     arcPathData = new SvgPath();
+                    arcPathData.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     arcPathData.Stroke = new SvgColourServer(Color.Red);
                     arcPathData.Fill = new SvgColourServer(Color.White);
                     arcPathData.PathData = new SvgPathSegmentList();
@@ -223,6 +169,7 @@ namespace Enveloper
                     moveTo = new SvgMoveToSegment(startPoint);
                     arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Positive, endPoint);
                     arcPathData = new SvgPath();
+                    arcPathData.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     arcPathData.Stroke = new SvgColourServer(Color.Red);
                     arcPathData.Fill = new SvgColourServer(Color.White);
                     arcPathData.PathData = new SvgPathSegmentList();
@@ -237,6 +184,7 @@ namespace Enveloper
                     moveTo = new SvgMoveToSegment(startPoint);
                     arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Positive, endPoint);
                     arcPathData = new SvgPath();
+                    arcPathData.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     arcPathData.Stroke = new SvgColourServer(Color.Red);
                     arcPathData.Fill = new SvgColourServer(Color.White);
                     arcPathData.PathData = new SvgPathSegmentList();
@@ -248,6 +196,7 @@ namespace Enveloper
                     var innerGroup = new SvgGroup();
                     FSvgDoc.Children.Add(innerGroup);
                     var innerPoly = new SvgPolygon();
+                    innerPoly.StrokeWidth = new SvgUnit(SvgUnitType.Inch, strokeWidth);
                     innerPoly.Stroke = new SvgColourServer(Color.Red);
                     innerPoly.Fill = new SvgColourServer(Color.Blue);
                     innerPoly.FillOpacity = 0.4f;
