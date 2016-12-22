@@ -218,8 +218,8 @@ namespace Enveloper
                     #endregion
 
                     #region bottom mid arc cut
-                    startPoint = new PointF(envelope.b + envelope.c / 2 - 0.7f*envelope.r, envelope.length - envelope.c / 2 + 0.3f*envelope.r);
-                    endPoint = new PointF(envelope.b + envelope.c / 2 + 0.7f*envelope.r, envelope.length - envelope.c / 2 + 0.3f*envelope.r);
+                    startPoint = new PointF(envelope.d + envelope.c / 2 - 0.7f*envelope.r, envelope.length - envelope.c / 2 + 0.3f*envelope.r);
+                    endPoint = new PointF(envelope.d + envelope.c / 2 + 0.7f*envelope.r, envelope.length - envelope.c / 2 + 0.3f*envelope.r);
                     moveTo = new SvgMoveToSegment(startPoint);
                     arc = new SvgArcSegment(startPoint, envelope.r, envelope.r, 90.0f, SvgArcSize.Small, SvgArcSweep.Positive, endPoint);
                     arcPathData = new SvgPath();
@@ -266,9 +266,9 @@ namespace Enveloper
                     innerPoly.Points.Add(new SvgUnit(envelope.b + envelope.c/2));
 
                     innerGroup.Children.Add(innerPoly);
-
-                    var folderPath = @"c:\users\srivers\envelopes\";
-                    var fileName = $"{x:.00}_x_{y:.00}.svg";
+                    var currentUser = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    var folderPath = $"{currentUser}\\envelopes\\";
+                    var fileName = $"Envelope_{x:.00}_x_{y:.00}.svg";
                     var di = new DirectoryInfo(folderPath);
                     if (!di.Exists)
                     {
