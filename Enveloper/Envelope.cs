@@ -40,6 +40,18 @@ namespace Enveloper
             return dim;
         }
 
+        float length;
+        float b, c, d;
+        float r;
+        void calcDimensions(bool roundDimensions = false)
+        {
+            b = roundDimensions ? roundToNearestFraction(Scale * (Length / 2) * (float)Math.Sqrt(2)) : Scale * (Length / 2) * (float)Math.Sqrt(2);
+            c = roundDimensions ? roundToNearestFraction(Scale * Offset * 2) : Scale * Offset * 2;
+            d = roundDimensions ? roundToNearestFraction(Scale * (Height / 2) * (float)Math.Sqrt(2)) : Scale * (Height / 2) * (float)Math.Sqrt(2);
+            length = b + c + d;
+            r = CutOffRadius * Scale;
+        }
+
         List<SortedList<int, PointF>> segments;
 
         List<SortedList<int, PointF>> calcSegments()
@@ -51,20 +63,20 @@ namespace Enveloper
             // Each segment has 5 points
 
             // topLeft
-            segment.Add(0,new PointF(0.0f + dim.c / 2 - 0.3f * dim.r, dim.length - dim.d - dim.c / 2 - 0.7f * dim.r));
-            segment.Add(1,new PointF(0.0f,dim.b));
+            segment.Add(0,new PointF(0.0f + c / 2 - 0.3f * r, length - d - c / 2 - 0.7f * r));
+            segment.Add(1,new PointF(0.0f,b));
             segment.Add(2, new PointF(0.0f, 0.0f));
-            segment.Add(3, new PointF(dim.b - 0.7f * dim.r,0.0f));
-            segment.Add(4, new PointF(dim.b + dim.c / 2 - 0.7f * dim.r,dim.c / 2 - 0.3f * dim.r));
+            segment.Add(3, new PointF(b - 0.7f * r,0.0f));
+            segment.Add(4, new PointF(b + c / 2 - 0.7f * r,c / 2 - 0.3f * r));
             result.Add(segment);
 
             //topRight
             segment = new SortedList<int, PointF>();
-            segment.Add(0, new PointF(dim.length - dim.d - dim.c / 2 + 0.7f * dim.r, dim.c / 2 - 0.3f * dim.r));
-            segment.Add(1, new PointF(dim.length - dim.d + 0.7f * dim.r, 0.0f));
-            segment.Add(2, new PointF(dim.length, 0.0f));
-            segment.Add(3, new PointF(dim.length, dim.d - 0.7f * dim.r));
-            segment.Add(4, new PointF(dim.length - dim.c / 2 + 0.3f * dim.r, dim.d + dim.c / 2 - 0.7f * dim.r));
+            segment.Add(0, new PointF(length - d - c / 2 + 0.7f * r, c / 2 - 0.3f * r));
+            segment.Add(1, new PointF(length - d + 0.7f * r, 0.0f));
+            segment.Add(2, new PointF(length, 0.0f));
+            segment.Add(3, new PointF(length, d - 0.7f * r));
+            segment.Add(4, new PointF(length - c / 2 + 0.3f * r, d + c / 2 - 0.7f * r));
 
             return result;
         }
