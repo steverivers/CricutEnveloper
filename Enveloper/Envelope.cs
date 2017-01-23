@@ -9,49 +9,27 @@ namespace Enveloper
 {
     public class Envelope
     {
-        public Envelope()
-        {
-            Length = 6;
-            Height = 4;
-            RoundTo = 0.125f;
-            Offset = 0.18f;
-            CutOffRadius = 0.05f;
-            calcDimensions();
-            LinearSegments = calcLinearSegments();
-            ArcSegments = calcArcSegments();
-        }
         public Envelope(float length, float height, float scaling = 1.0f)
         {
             Length = length;
             Height = height;
             RoundTo = 0.125f;
             Offset = 0.18f;
-            Scale = scaling;
             CutOffRadius = 0.05f;
             calcDimensions();
             LinearSegments = calcLinearSegments();
             ArcSegments = calcArcSegments();
+            InnerScoreArea = calcInnerScoreArea();
         }
 
-        #region
+        #region 
         public float Length { get; private set; }
         public float Height { get; private set; }
         public float Offset { get; private set; }
         public float RoundTo { get; private set; }
-        public float Scale { get; private set; }
         public float CutOffRadius { get; private set; }
+        public float PaperSize { get { return length; } }
         #endregion
-
-        public Dimensions getDim(bool roundDimensions = false)
-        {
-            var dim = new Dimensions();
-            dim.b = roundDimensions ? roundToNearestFraction(Scale * (Length / 2) * (float)Math.Sqrt(2)) : Scale * (Length / 2) * (float)Math.Sqrt(2);
-            dim.c = roundDimensions ? roundToNearestFraction(Scale * Offset * 2) : Scale * Offset * 2;
-            dim.d = roundDimensions ? roundToNearestFraction(Scale * (Height / 2) * (float)Math.Sqrt(2)) : Scale * (Height / 2) * (float)Math.Sqrt(2);
-            dim.length = dim.b + dim.c + dim.d;
-            dim.r = CutOffRadius * Scale;
-            return dim;
-        }
 
         float length;
         float b, c, d;
@@ -59,11 +37,11 @@ namespace Enveloper
 
         void calcDimensions(bool roundDimensions = false)
         {
-            b = roundDimensions ? roundToNearestFraction(Scale * (Length / 2) * (float)Math.Sqrt(2)) : Scale * (Length / 2) * (float)Math.Sqrt(2);
-            c = roundDimensions ? roundToNearestFraction(Scale * Offset * 2) : Scale * Offset * 2;
-            d = roundDimensions ? roundToNearestFraction(Scale * (Height / 2) * (float)Math.Sqrt(2)) : Scale * (Height / 2) * (float)Math.Sqrt(2);
+            b = roundDimensions ? roundToNearestFraction((Length / 2) * (float)Math.Sqrt(2)) : (Length / 2) * (float)Math.Sqrt(2);
+            c = roundDimensions ? roundToNearestFraction(Offset * 2) :  Offset * 2;
+            d = roundDimensions ? roundToNearestFraction((Height / 2) * (float)Math.Sqrt(2)) : (Height / 2) * (float)Math.Sqrt(2);
             length = b + c + d;
-            r = CutOffRadius * Scale;
+            r = CutOffRadius;
         }
 
         #region generate segments
@@ -147,6 +125,20 @@ namespace Enveloper
 
             return result;
         }
+
+        public SortedList<int,PointF> InnerScoreArea { get; private set; }
+        SortedList<int, PointF> calcInnerScoreArea()
+        {
+            var scoreArea = new  SortedList<int, PointF>();
+
+            scoreArea = new SortedList<int, PointF>();
+            scoreArea.Add(0,new PointF(b + c / 2, c / 2));
+            scoreArea.Add(1, new PointF(length - c / 2, d + c / 2));
+            scoreArea.Add(2, new PointF(d + c / 2, length - c / 2));
+            scoreArea.Add(3, new PointF(c / 2, b + c / 2));
+            return scoreArea;
+        }
+
         #endregion
 
         float roundToNearestFraction(float value, float fraction = 0.125f)
